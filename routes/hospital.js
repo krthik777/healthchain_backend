@@ -241,4 +241,36 @@ router.post(
   }
 );
 
+router.post('/create-patient', auth(['receptionist']), async (req, res) => {
+  try {
+    const { patientId, name, age, dob, gender, address, bloodGroup } = req.body;
+
+    const patientData = {
+      json: {
+        patientId,
+        name,
+        age,
+        dob,
+        gender,
+        address,
+        bloodGroup,
+        // hospitalId: req.user.hospital,
+        // createdBy: req.user._id,
+        timestamp: new Date().toISOString()
+      }
+    };
+
+    const result = await multiChainPromise('publish',
+      ['patient_basic_stream', patientId, patientData]);
+
+    res.status(201).json({
+      message: 'Patient created successfully',
+      transactionId: result
+    });
+  } catch (error) {
+    console.error('create-patient error', error);
+    res.status(500).json({ error: error.message || 'Server error' });
+  }
+});
+
 module.exports = router;

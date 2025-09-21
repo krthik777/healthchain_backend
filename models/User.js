@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
 const UserSchema = new mongoose.Schema({
-  uid: { type: String, required: true, unique: true, index: true }, // <-- new
+  patientId: { type: String, required: true, unique: true, index: true }, // <-- new
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role: {
@@ -11,7 +11,7 @@ const UserSchema = new mongoose.Schema({
       "health_department",
       "region_admin",
       "hospital_admin",
-            "receptionist",
+      "receptionist",
       "reception",
       "doctor",
     ],

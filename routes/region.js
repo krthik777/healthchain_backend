@@ -6,7 +6,9 @@ const auth = require('../middleware/auth');
 const router = express.Router();
 
 // Create Hospital
-router.post('/create-hospital', auth(['region_admin']), async (req, res) => {
+router.post('/create-hospital', 
+    // auth(['region_admin']), 
+    async (req, res) => {
     try {
         const { name, address } = req.body;
 
