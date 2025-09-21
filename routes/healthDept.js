@@ -8,7 +8,7 @@ const router = express.Router();
 
 // Initialize blockchain streams (run once)
 router.post('/init-blockchain',
-    //  auth(['health_department']), 
+    //  
      async (req, res) => {
     try {
         // Create streams for different data types
