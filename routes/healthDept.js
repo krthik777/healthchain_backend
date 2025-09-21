@@ -7,7 +7,7 @@ const auth = require('../middleware/auth');
 const router = express.Router();
 
 // Initialize blockchain streams (run once)
-router.post('/init-blockchain', auth(['health_department']), async (req, res) => {
+router.post('/init-blockchain', async (req, res) => {
     try {
         // Create streams for different data types
         await multiChainPromise('create', ['registry_stream', 'true']);
@@ -22,7 +22,7 @@ router.post('/init-blockchain', auth(['health_department']), async (req, res) =>
 });
 
 // Create Region Admin
-router.post('/create-region-admin', auth(['health_department']), async (req, res) => {
+router.post('/create-region-admin', async (req, res) => {
     try {
         const { username, password, regionName } = req.body;
 
