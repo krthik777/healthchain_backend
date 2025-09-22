@@ -11,6 +11,7 @@ const userRoutes = require('./routes/user'); // Import the new user router
 const healthDeptRoutes = require('./routes/healthDept');
 const regionRoutes = require('./routes/region');
 const hospitalRoutes = require('./routes/hospital');
+const receptionRoutes = require('./routes/reception');
 
 const app = express();
 
@@ -32,7 +33,8 @@ app.use('/api/user', userRoutes); // Mount the user router
 app.use('/api/health-dept', healthDeptRoutes);
 app.use('/api/region', regionRoutes);
 app.use('/api/hospital', hospitalRoutes);
-app.use('/api/api', apiRoutes); // General API routes
+app.use('/api/api', apiRoutes);
+app.use('/api/reception', receptionRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
