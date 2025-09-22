@@ -1,23 +1,18 @@
+// models/Scan.js
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const { Schema } = mongoose;
 
-const UserSchema = new mongoose.Schema({
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    role: { 
-        type: String, 
-        enum: ['health_department', 'region_admin', 'hospital_admin', 'receptionist', 'doctor'],
-        required: true 
-    },
-    region: { type: mongoose.Schema.Types.ObjectId, ref: 'Region' },
-    hospital: { type: mongoose.Schema.Types.ObjectId, ref: 'Hospital' },
-    walletAddress: { type: String } // MultiChain wallet address
+const ScanSchema = new Schema({
+  patientId: { type: String, required: true, index: true },
+  originalName: { type: String, required: true },
+  encryptedName: { type: String, required: true },
+  type: { type: String, required: true },
+  cid: { type: String, required: true, index: true },
+  encryptionKey: { type: String, required: true }, // NOTE: in prod store securely (KMS)
+  isEncrypted: { type: Boolean, default: true },
+  timestamp: { type: Date, default: Date.now }
+}, {
+  timestamps: true
 });
 
-UserSchema.pre('save', async function(next) {
-    if (!this.isModified('password')) return next();
-    this.password = await bcrypt.hash(this.password, 12);
-    next();
-});
-
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Scan', ScanSchema);
